@@ -7,7 +7,7 @@ pygame.init()
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Snake game")
-rect_color = (0, 128, 255)  # RGB color tuple (blue in this case)
+rect_color = (0, 128, 255)  # RGB color tuple
 rect_position = (200, 200)  # (x, y) position of the top-left corner
 rect_size = (20, 20) 
 # Main game loop
