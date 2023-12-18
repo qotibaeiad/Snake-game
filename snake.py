@@ -17,7 +17,7 @@ rect_size = (20, 20)
 
 # Main game loop
 running = True
-speed = 0.09
+speed = 0.08  # Adjusted the speed value
 
 # Flags to indicate movement direction
 moving_up = False
@@ -33,31 +33,33 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
                 moving_up = True
-            elif event.key == pygame.K_s:
-                moving_down = True
-            elif event.key == pygame.K_a:
-                moving_left = True
-            elif event.key == pygame.K_d:
-                moving_right = True
-        # Check for key releases
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_w:
-                moving_up = False
-            elif event.key == pygame.K_s:
                 moving_down = False
-            elif event.key == pygame.K_a:
                 moving_left = False
-            elif event.key == pygame.K_d:
                 moving_right = False
-
+            elif event.key == pygame.K_s:
+                moving_up = False
+                moving_down = True
+                moving_left = False
+                moving_right = False
+            elif event.key == pygame.K_a:
+                moving_up = False
+                moving_down = False
+                moving_left = True
+                moving_right = False
+            elif event.key == pygame.K_d:
+                moving_up = False
+                moving_down = False
+                moving_left = False
+                moving_right = True
+       
     # Update position based on movement flags
-    if moving_up and  pos_y>0:
+    if moving_up and pos_y > 0:
         pos_y -= speed
-    if moving_down and pos_y<=height:
+    if moving_down and pos_y + rect_size[1] < height:
         pos_y += speed
-    if moving_left and pos_x>0:
+    if moving_left and pos_x > 0:
         pos_x -= speed
-    if moving_right and pos_x<=width:
+    if moving_right and pos_x + rect_size[0] < width:
         pos_x += speed
 
     # Paint the screen
