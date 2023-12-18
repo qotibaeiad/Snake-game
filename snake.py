@@ -9,6 +9,19 @@ width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Snake game")
 
+
+class Node:
+    def __init__(self, x, y, color):
+        self.rect = pygame.Rect(x, y, 20, 20)
+        self.color = color
+        self.next = None
+
+def add_rectangle(x, y, color):
+    new_node = Node(x, y, color)
+    new_node.next = head
+    return new_node
+
+head = None
 pos_x = 200
 pos_y = 200
 rect_color = (0, 128, 255)  # RGB color tuple
@@ -24,7 +37,7 @@ moving_up = False
 moving_down = False
 moving_left = False
 moving_right = False
-
+head.add_rectangle(screen, rect_color, pygame.Rect(rect_position, rect_size))
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -51,6 +64,7 @@ while running:
                 moving_down = False
                 moving_left = False
                 moving_right = True
+    
        
     # Update position based on movement flags
     if moving_up and pos_y > 0:
