@@ -37,7 +37,7 @@ moving_up = False
 moving_down = False
 moving_left = False
 moving_right = False
-head.add_rectangle(screen, rect_color, pygame.Rect(rect_position, rect_size))
+#head.add_rectangle(screen, rect_color, pygame.Rect(rect_position, rect_size))
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
