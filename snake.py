@@ -112,7 +112,7 @@ moving_right = True
 cnt=0
 # Event loop
 while running:
-    time.sleep(0.5)
+    time.sleep(0.2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
