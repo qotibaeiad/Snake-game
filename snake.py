@@ -83,7 +83,7 @@ score_text = font.render("Score: {}".format(score_variable), True, (255, 1, 1)) 
 # Get the rect object from the text surface
 text_rect = score_text.get_rect()
 
-# Set the position of the text (adjust as needed)
+# Set the position of the text 
 text_rect.topleft = (10, 10)
 
 # Blit the text surface onto the screen
@@ -99,6 +99,8 @@ max_distance = calculate_distance(20, 20, 40, 40)
 
 # Initialize x and y
 x, y = random.randint(0, 780), random.randint(0, 580)
+while x%20!=0 or y%20!=0:
+    x, y = random.randint(0, 780), random.randint(0, 580)
 dis = calculate_distance(pos_x, pos_y, x, y)
 
 # Main game loop
@@ -112,7 +114,7 @@ moving_right = True
 cnt=0
 # Event loop
 while running:
-    time.sleep(0.2)
+    time.sleep(0.07)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -132,7 +134,6 @@ while running:
     if dis >= max_distance:
         if moving_up and pos_y > 0:
             current = linked_list.head
-            
             while current:
                 if current.next:
                     current.x_position = current.next.x_position
@@ -145,7 +146,7 @@ while running:
             current = linked_list.head
             while current:
                 if current.next:
-                    current.y_position = current.next.y_position - rect_size[1]
+                    current.y_position = current.next.y_position #- rect_size[1]
                     current.x_position = current.next.x_position
                 else:
                     current.y_position += speed
@@ -166,7 +167,7 @@ while running:
             current = linked_list.head
             while current:
                 if current.next:
-                    current.x_position = current.next.x_position + rect_size[0]
+                    current.x_position = current.next.x_position
                     current.y_position = current.next.y_position 
 
                 else:
