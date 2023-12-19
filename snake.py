@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import math
+import time
 
 
 class Node:
@@ -9,6 +10,7 @@ class Node:
         self.x_position = x
         self.y_position = y
         self.color = color
+        self.tmp = 0
         self.next = None
 
     def prepend(self, x, y, color):
@@ -101,16 +103,16 @@ dis = calculate_distance(pos_x, pos_y, x, y)
 
 # Main game loop
 running = True
-speed = 0.12
-
+speed = 20
 # Flags to indicate movement direction
 moving_up = False
 moving_down = False
 moving_left = False
 moving_right = True
-
+cnt=0
 # Event loop
 while running:
+    time.sleep(0.5)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -128,40 +130,45 @@ while running:
 
     # Update position based on movement flags
     if dis >= max_distance:
-        if moving_up: #and pos_y > 0:
-            #Wfor rec in linked_list:
-             #   rec.x_position-=speed
+        if moving_up and pos_y > 0:
             current = linked_list.head
+            
             while current:
                 if current.next:
-                    current.y_position = current.next.y_position
+                    current.x_position = current.next.x_position
+                    current.y_position = current.next.y_position 
                 else:
                     current.y_position -= speed
                 current = current.next
             pos_y -= speed
-        elif moving_down:# and pos_y + rect_size[1] < height:
+        elif moving_down and pos_y + rect_size[1] < height:
             current = linked_list.head
             while current:
                 if current.next:
-                    current.y_position = current.next.y_position
+                    current.y_position = current.next.y_position - rect_size[1]
+                    current.x_position = current.next.x_position
                 else:
                     current.y_position += speed
                 current = current.next
             pos_y += speed
-        elif moving_left:# and pos_x > 0:
+        elif moving_left and pos_x > 0:
             current = linked_list.head
             while current:
                 if current.next:
                     current.x_position = current.next.x_position
+                    current.y_position = current.next.y_position
                 else:
                     current.x_position -= speed
                 current = current.next
+            
             pos_x -= speed
-        elif moving_right:# and pos_x + rect_size[0] < width:
+        elif moving_right and pos_x + rect_size[0] < width:
             current = linked_list.head
             while current:
                 if current.next:
-                    current.x_position = current.next.x_position
+                    current.x_position = current.next.x_position + rect_size[0]
+                    current.y_position = current.next.y_position 
+
                 else:
                     current.x_position += speed
                 current = current.next
@@ -178,9 +185,17 @@ while running:
     dis = calculate_distance(pos_x, pos_y, x, y)
 
     while 0 < dis < max_distance:
-        linked_list.prepend(linked_list.head.x_position,linked_list.head.y_position,rect_color)
+        linked_list.prepend(pos_x,pos_y,rect_color)
         score_variable+=1
+        pos1=linked_list.head
+        print("----------------------------")
+        while pos1:
+            print(pos1.x_position,",",pos1.y_position)
+            pos1=pos1.next
+        print("----------------------------")
         x, y = random.randint(0, 780), random.randint(0, 580)
+        while x%20!=0 or y%20!=0:
+            x, y = random.randint(0, 780), random.randint(0, 580)
         dis = calculate_distance(pos_x, pos_y, x, y)
     random_rec = (x, y)
     draw_rectangle(screen, pygame.Rect(random_rec, rect_size), random_rec_color)
@@ -188,10 +203,9 @@ while running:
     current = linked_list.head
     while current:
         draw_rectangle(screen,pygame.Rect((current.x_position,current.y_position),rect_size),rect_color)
-       # print(current.x_position, end=" -> ")
         current = current.next
     #print("None")
-
+        linked_list.display
 
 
     score_text = font.render("Score: {}".format(score_variable), True, (255, 1, 1))
