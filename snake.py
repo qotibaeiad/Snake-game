@@ -95,7 +95,7 @@ rect_color = (0, 128, 255)
 linked_list.prepend(200, 200, rect_color)
 random_rec_color = (255, 0, 0)
 rect_size = (20, 20)
-max_distance = calculate_distance(20, 20, 40, 40)
+max_distance = calculate_distance(20, 20, 40, 20)
 
 # Initialize x and y
 x, y = random.randint(0, 780), random.randint(0, 580)
@@ -114,7 +114,7 @@ moving_right = True
 cnt=0
 # Event loop
 while running:
-    time.sleep(0.07)
+    time.sleep(0.1)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -185,7 +185,7 @@ while running:
     # Draw random rectangle
     dis = calculate_distance(pos_x, pos_y, x, y)
 
-    while 0 < dis < max_distance:
+    while 0 <= dis < max_distance:
         linked_list.prepend(pos_x,pos_y,rect_color)
         score_variable+=1
         pos1=linked_list.head
