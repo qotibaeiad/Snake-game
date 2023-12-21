@@ -123,7 +123,7 @@ while running:
                 moving_right = True
     # Update position based on movement flags
     if dis >= max_distance:
-        if moving_up and pos_y > 0:
+        if moving_up:# and pos_y > 0:
             current = linked_list.head
             while current:
                 if current.next:
@@ -133,7 +133,7 @@ while running:
                     current.y_position -= speed
                 current = current.next
             pos_y -= speed
-        elif moving_down and pos_y + rect_size[1] < height:
+        elif moving_down: #and pos_y + rect_size[1] < height:
             current = linked_list.head
             while current:
                 if current.next:
@@ -143,7 +143,7 @@ while running:
                     current.y_position += speed
                 current = current.next
             pos_y += speed
-        elif moving_left and pos_x > 0:
+        elif moving_left:# and pos_x > 0:
             current = linked_list.head
             while current:
                 if current.next:
@@ -154,7 +154,7 @@ while running:
                 current = current.next
             
             pos_x -= speed
-        elif moving_right and pos_x + rect_size[0] < width:
+        elif moving_right:# and pos_x + rect_size[0] < width:
             current = linked_list.head
             while current:
                 if current.next:
@@ -191,6 +191,8 @@ while running:
     screen.blit(score_text, text_rect)
     # Update the display
     pygame.display.flip()
+    if pos_x + 20 > 780 or pos_y + 20 > 580 or pos_x < 0 or pos_y < 0:
+        running = False
 # Quit Pygame
 pygame.quit()
 sys.exit()
